@@ -10,5 +10,6 @@ lib/Catalyst/Helper/Model/MongoDB.pm
 lib/Catalyst/Model/MongoDB.pm
 Makefile.PL
 MANIFEST			This list of files
+META.yml
 t/00-load.t
 t/05-pod.t
