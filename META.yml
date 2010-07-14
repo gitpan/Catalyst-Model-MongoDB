@@ -4,6 +4,7 @@ author:
   - 'Torsten Raudssus <torsten@raudssus.de>'
 build_requires:
   ExtUtils::MakeMaker: 6.42
+  Test::More: 0.47
 configure_requires:
   ExtUtils::MakeMaker: 6.42
 distribution_type: module
@@ -18,9 +19,10 @@ no_index:
     - inc
     - t
 requires:
-  Catalyst: 0
+  Catalyst::Runtime: 0
   MongoDB: 0
+  Moose: 0
   perl: 5.8.0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.03
+version: 0.04
