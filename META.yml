@@ -19,10 +19,9 @@ no_index:
     - inc
     - t
 requires:
-  Catalyst::Runtime: 0
+  Catalyst::Runtime: 5.8
   MongoDB: 0
-  Moose: 0
   perl: 5.8.0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.05
+version: 0.06
