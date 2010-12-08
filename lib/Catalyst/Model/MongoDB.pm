@@ -1,4 +1,5 @@
 package Catalyst::Model::MongoDB;
+# ABSTRACT: MongoDB model class for Catalyst
 use MongoDB;
 use MongoDB::OID;
 use Moose;
@@ -120,11 +121,17 @@ sub oid {
 
 1;
 
+
+__END__
 =pod
 
 =head1 NAME
 
 Catalyst::Model::MongoDB - MongoDB model class for Catalyst
+
+=head1 VERSION
+
+version 0.07
 
 =head1 SYNOPSIS
 
@@ -159,7 +166,6 @@ Catalyst::Model::MongoDB - MongoDB model class for Catalyst
 
     $c->model('MyModel')->database_names               # returns ->database_names
     $c->model('MyModel')->dbnames                      # the same...
-
 
 =head1 DESCRIPTION
 
@@ -231,27 +237,21 @@ Repository
 
   http://github.com/Getty/p5-catalyst-model-mongodb
   Pull request and additional contributors are welcome
- 
+
 Issue Tracker
 
   http://github.com/Getty/p5-catalyst-model-mongodb/issues
 
 =head1 AUTHOR
 
-Torsten Raudssus <torsten@raudssus.de>
-Soren Dossing <netcom@sauber.net>
+Torsten Raudssus <torsten@raudssus.de> L<http://www.raudssus.de/>
 
-=head1 BUGS 
+=head1 COPYRIGHT AND LICENSE
 
-Please report any bugs or feature requests on the github issue tracker http://github.com/Getty/p5-catalyst-model-mongodb/issues
-or to Getty or sauber on IRC at irc.perl.org, or make a pull request at http://github.com/Getty/cp5-catalyst-model-mongodb
+This software is copyright (c) 2010 by Raudssus Social Software.
 
-=head1 COPYRIGHT & LICENSE 
-
-Copyright 2010 Torsten Raudssus & Soren Dossing, all rights reserved.
-
-This library is free software; you can redistribute it and/or modify it under the same terms as 
-Perl itself, either Perl version 5.8.8 or, at your option, any later version of Perl 5 you may 
-have available.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+

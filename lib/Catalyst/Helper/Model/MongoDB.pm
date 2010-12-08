@@ -1,36 +1,11 @@
 package Catalyst::Helper::Model::MongoDB;
+BEGIN {
+  $Catalyst::Helper::Model::MongoDB::VERSION = '0.07';
+}
+# ABSTRACT: Helper for MongoDB models
 use strict;
 use warnings;
 
-our $VERSION = '0.06';
-
-=pod
-
-=head1 NAME
-
-Catalyst::Helper::Model::MongoDB - Helper for MongoDB models
-
-=head1 SYNOPSIS
-
-  script/myapp_create.pl model MyModel MongoDB [host] [port] [dbname] [collectionname] [gridfs]
-
-=head1 DESCRIPTION
-
-Helper for the L<Catalyst> MongoDB model.
-
-=head1 USAGE
-
-=head1 METHODS
-
-=head2 mk_compclass
-
-Makes the model class.
-
-=head2 mk_comptest
-
-Makes tests.
-
-=cut
 
 sub mk_compclass {
     my ( $self, $helper, $host, $port, $dbname, $collectionname, $gridfs ) = @_;
@@ -52,7 +27,40 @@ sub mk_comptest {
     $helper->render_file('modeltest', $helper->{test});
 }
 
+
+1;
+
+
+
 =pod
+
+=head1 NAME
+
+Catalyst::Helper::Model::MongoDB - Helper for MongoDB models
+
+=head1 VERSION
+
+version 0.07
+
+=head1 SYNOPSIS
+
+  script/myapp_create.pl model MyModel MongoDB [host] [port] [dbname] [collectionname] [gridfs]
+
+=head1 DESCRIPTION
+
+Helper for the L<Catalyst> MongoDB model.
+
+=head1 USAGE
+
+=head1 METHODS
+
+=head2 mk_compclass
+
+Makes the model class.
+
+=head2 mk_comptest
+
+Makes tests.
 
 =head1 SUPPORT
 
@@ -64,32 +72,24 @@ Repository
 
   http://github.com/Getty/p5-catalyst-model-mongodb
   Pull request and additional contributors are welcome
- 
+
 Issue Tracker
 
   http://github.com/Getty/p5-catalyst-model-mongodb/issues
 
 =head1 AUTHOR
 
-Torsten Raudssus <torsten@raudssus.de>
-Soren Dossing <netcom@sauber.net>
+Torsten Raudssus <torsten@raudssus.de> L<http://www.raudssus.de/>
 
-=head1 BUGS 
+=head1 COPYRIGHT AND LICENSE
 
-Please report any bugs or feature requests on the github issue tracker http://github.com/Getty/p5-catalyst-model-mongodb/issues
-or to Getty or sauber on IRC at irc.perl.org, or make a pull request at http://github.com/Getty/p5-catalyst-model-mongodb
+This software is copyright (c) 2010 by Raudssus Social Software.
 
-=head1 COPYRIGHT & LICENSE 
-
-Copyright 2010 Torsten Raudssus, all rights reserved.
-
-This library is free software; you can redistribute it and/or modify it under the same terms as 
-Perl itself, either Perl version 5.8.8 or, at your option, any later version of Perl 5 you may 
-have available.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
 
-1;
 
 __DATA__
 

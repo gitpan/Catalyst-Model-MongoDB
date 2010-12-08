@@ -1,0 +1,5 @@
+Revision history for Catalyst-Model-MongoDB
+
+0.07      2010-12-08 02:19:02 Europe/Berlin
+	- Switched to Dist::Zilla
+	- Actually started a Changes file

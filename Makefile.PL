@@ -1,14 +1,54 @@
-use inc::Module::Install 0.64;
 
-name 'Catalyst-Model-MongoDB';
+use strict;
+use warnings;
 
-perl_version '5.008';
-license 'perl';
-all_from 'lib/Catalyst/Model/MongoDB.pm';
 
-requires 'Catalyst::Runtime' => 5.80;
-requires 'MongoDB';
 
-test_requires 'Test::More' => '0.47';
+use ExtUtils::MakeMaker 6.31;
 
-WriteAll;
+
+
+my %WriteMakefileArgs = (
+  'ABSTRACT' => 'MongoDB model class for Catalyst',
+  'AUTHOR' => 'Torsten Raudssus <torsten@raudssus.de> L<http://www.raudssus.de/>',
+  'BUILD_REQUIRES' => {
+    'Test::More' => '0.96'
+  },
+  'CONFIGURE_REQUIRES' => {
+    'ExtUtils::MakeMaker' => '6.31'
+  },
+  'DISTNAME' => 'Catalyst-Model-MongoDB',
+  'EXE_FILES' => [],
+  'LICENSE' => 'perl',
+  'NAME' => 'Catalyst::Model::MongoDB',
+  'PREREQ_PM' => {
+    'Catalyst::Runtime' => '5.80',
+    'MongoDB' => '0'
+  },
+  'VERSION' => '0.07',
+  'test' => {
+    'TESTS' => 't/*.t'
+  }
+);
+
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
+  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
+  my $pp = $WriteMakefileArgs{PREREQ_PM};
+  for my $mod ( keys %$br ) {
+    if ( exists $pp->{$mod} ) {
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
+    }
+    else {
+      $pp->{$mod} = $br->{$mod};
+    }
+  }
+}
+
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
+
+WriteMakefile(%WriteMakefileArgs);
+
+
+
