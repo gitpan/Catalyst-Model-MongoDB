@@ -3,7 +3,7 @@ BEGIN {
   $Catalyst::Model::MongoDB::AUTHORITY = 'cpan:GETTY';
 }
 BEGIN {
-  $Catalyst::Model::MongoDB::VERSION = '0.09';
+  $Catalyst::Model::MongoDB::VERSION = '0.10';
 }
 # ABSTRACT: MongoDB model class for Catalyst
 use MongoDB;
@@ -29,7 +29,7 @@ has 'connection' => (
 sub _build_connection {
   my ($self) = @_;
 
-  my $conn = MongoDB::Connnection->new(
+  my $conn = MongoDB::Connection->new(
       host => $self->host,
       port => $self->port,
       ( $self->dbname ? ( dbname => $self->dbname ) : () ),
@@ -150,7 +150,7 @@ Catalyst::Model::MongoDB - MongoDB model class for Catalyst
 
 =head1 VERSION
 
-version 0.09
+version 0.10
 
 =head1 SYNOPSIS
 

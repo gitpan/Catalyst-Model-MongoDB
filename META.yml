@@ -19,7 +19,7 @@ requires:
 resources:
   homepage: https://github.com/Getty/p5-catalyst-model-mongodb/tree
   repository: https://github.com/Getty/p5-catalyst-model-mongodb.git
-version: 0.09
+version: 0.10
 x_Dist_Zilla:
   plugins:
     -
