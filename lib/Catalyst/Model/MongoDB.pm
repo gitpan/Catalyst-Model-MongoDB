@@ -1,4 +1,10 @@
 package Catalyst::Model::MongoDB;
+BEGIN {
+  $Catalyst::Model::MongoDB::AUTHORITY = 'cpan:GETTY';
+}
+BEGIN {
+  $Catalyst::Model::MongoDB::VERSION = '0.08';
+}
 # ABSTRACT: MongoDB model class for Catalyst
 use MongoDB;
 use MongoDB::OID;
@@ -6,13 +12,13 @@ use Moose;
 
 BEGIN { extends 'Catalyst::Model' }
 
-our $VERSION = '0.06';
-
 has host           => ( isa => 'Str', is => 'ro', required => 1, default => sub { 'localhost' } );
 has port           => ( isa => 'Int', is => 'ro', required => 1, default => sub { 27017 } );
 has dbname         => ( isa => 'Str', is => 'ro' );
 has collectionname => ( isa => 'Str', is => 'ro' );
 has gridfsname     => ( isa => 'Str', is => 'ro' );
+has username       => ( isa => 'Str', is => 'ro', predicate => 'has_username' );
+has password       => ( isa => 'Str', is => 'ro', predicate => 'has_password' );
 
 has 'connection' => (
   isa => 'MongoDB::Connection',
@@ -22,10 +28,20 @@ has 'connection' => (
 
 sub _build_connection {
   my ($self) = @_;
-  return MongoDB::Connection->new(
-    host => $self->host,
-    port => $self->port,
+
+  my $conn = MongoDB::Connnection->new(
+      host => $self->host,
+      port => $self->port,
+      ( $self->dbname ? ( dbname => $self->dbname ) : () ),
   );
+
+  # attempt authentication only if we have all three parameters for
+  # MongoDB::Connection->authenticate()
+  if ($self->dbname && $self->has_username && $self->has_password) {
+      $conn->authenticate($self->dbname, $self->username, $self->password);
+  }
+
+  return $conn;
 }
 
 has 'dbs' => (
@@ -50,7 +66,10 @@ sub collection {
   my ( $self, $param ) = @_;
   my $dbname;
   my $collname;
-  my @params = split(/\./,$param);
+  my @params;
+  if ($param) {
+	@params = split(/\./,$param)
+  }
   if (@params > 1) {
 	$dbname = $params[0];
 	$collname = $params[1];
@@ -131,7 +150,7 @@ Catalyst::Model::MongoDB - MongoDB model class for Catalyst
 
 =head1 VERSION
 
-version 0.07
+version 0.08
 
 =head1 SYNOPSIS
 
@@ -142,6 +161,8 @@ version 0.07
         host localhost
         port 27017
         dbname mydatabase
+        username myuser
+        password mypass
         collectionname preferedcollection
         gridfs preferedgridfs
     </Model::MyModel>
@@ -177,6 +198,12 @@ You can pass the same configuration fields as when you make a new L<MongoDB::Con
 
 In addition you can also give a database name via dbname, a collection name via collectioname or 
 a gridfs name via gridfsname.
+
+=head2 AUTHENTICATION
+
+If all three of C<username>, C<password>, and C<dbname> are present, this class
+will authenticate via MongoDB::Connection->authenticate().  (See
+L<MongoDB::Connection|MongoDB::Connection> for details).
 
 =head1 METHODS
 
