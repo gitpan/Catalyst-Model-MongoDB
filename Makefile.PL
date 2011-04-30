@@ -25,7 +25,7 @@ my %WriteMakefileArgs = (
     'Catalyst::Runtime' => '5.80',
     'MongoDB' => '0'
   },
-  'VERSION' => '0.08',
+  'VERSION' => '0.09',
   'test' => {
     'TESTS' => 't/*.t'
   }

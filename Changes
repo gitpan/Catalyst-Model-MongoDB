@@ -1,5 +1,7 @@
 Revision history for Catalyst-Model-MongoDB
 
+0.09      2011-04-30 13:09:21 America/Chicago
+
 0.08      2011-04-30 13:08:15 America/Chicago
 	- Added functionality for username/password authentication
 
