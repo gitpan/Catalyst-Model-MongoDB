@@ -10,5 +10,6 @@ lib/Catalyst/Helper/Model/MongoDB.pm
 lib/Catalyst/Model/MongoDB.pm
 t/00-load.t
 t/05-pod.t
+t/10-data.t
 t/dbnames.t
 t/release-pod-syntax.t

@@ -2,8 +2,8 @@ package Catalyst::Model::MongoDB;
 BEGIN {
   $Catalyst::Model::MongoDB::AUTHORITY = 'cpan:GETTY';
 }
-BEGIN {
-  $Catalyst::Model::MongoDB::VERSION = '0.10';
+{
+  $Catalyst::Model::MongoDB::VERSION = '0.08';
 }
 # ABSTRACT: MongoDB model class for Catalyst
 use MongoDB;
@@ -21,7 +21,7 @@ has username       => ( isa => 'Str', is => 'ro', predicate => 'has_username' );
 has password       => ( isa => 'Str', is => 'ro', predicate => 'has_password' );
 
 has 'connection' => (
-  isa => 'MongoDB::Connection',
+  isa => 'MongoDB::MongoClient',
   is => 'rw',
   lazy_build => 1,
 );
@@ -29,7 +29,7 @@ has 'connection' => (
 sub _build_connection {
   my ($self) = @_;
 
-  my $conn = MongoDB::Connection->new(
+  my $conn = MongoDB::MongoClient->new(
       host => $self->host,
       port => $self->port,
       ( $self->dbname ? ( dbname => $self->dbname ) : () ),
@@ -60,8 +60,8 @@ sub db {
   return $self->dbs->{$dbname};
 }
 
-sub c { shift->collection(@_) }
-sub coll { shift->collection(@_) }
+*c = \&collection;
+*coll = \&collection;
 sub collection {
   my ( $self, $param ) = @_;
   my $dbname;
@@ -98,14 +98,14 @@ sub eval {
   $self->db->eval(@params);
 }
 
-sub collnames { shift->collection_names(@_) }
+*collnames = \&collection_names;
 sub collection_names {
   my ( $self, @params ) = @_;
   confess "no dbname given via config" if !$self->dbname;
   $self->db->collection_names(@params);
 }
 
-sub g { shift->gridfs(@_) }
+*g = \&gridfs;
 sub gridfs {
   my ( $self, $param ) = @_;
   my $dbname;
@@ -127,7 +127,7 @@ sub gridfs {
   $self->db($dbname)->get_gridfs($gridfsname);
 }
 
-sub dbnames { shift->database_names(@_) }
+*dbnames = \&database_names;
 sub database_names {
   my ( $self ) = @_;
   $self->connection->database_names;
@@ -138,10 +138,15 @@ sub oid {
   return MongoDB::OID->new( value => $_id );
 }
 
+sub authenticate {
+  my( $self, @params ) = @_;
+  return $self->connection->authenticate(@params);
+}
+
 1;
 
-
 __END__
+
 =pod
 
 =head1 NAME
@@ -150,7 +155,7 @@ Catalyst::Model::MongoDB - MongoDB model class for Catalyst
 
 =head1 VERSION
 
-version 0.10
+version 0.08
 
 =head1 SYNOPSIS
 
@@ -170,7 +175,7 @@ version 0.10
     #
     # Usage
     #
-    $c->model('MyModel')->db                           # returns MongoDB::Connection->mydatabase
+    $c->model('MyModel')->db                           # returns MongoDB::MongoClient->get_database
     $c->model('MyModel')->db('otherdb')                # returns ->otherdb
     $c->model('MyModel')->collection                   # returns ->mydatabase->preferedcollection
     $c->model('MyModel')->coll                         # the same...
@@ -190,11 +195,11 @@ version 0.10
 
 =head1 DESCRIPTION
 
-This model class exposes L<MongoDB::Connection> as a Catalyst model.
+This model class exposes L<MongoDB::MongoClient> as a Catalyst model.
 
 =head1 CONFIGURATION
 
-You can pass the same configuration fields as when you make a new L<MongoDB::Connection>.
+You can pass the same configuration fields as when you make a new L<MongoDB::MongoClient>.
 
 In addition you can also give a database name via dbname, a collection name via collectioname or 
 a gridfs name via gridfsname.
@@ -202,8 +207,8 @@ a gridfs name via gridfsname.
 =head2 AUTHENTICATION
 
 If all three of C<username>, C<password>, and C<dbname> are present, this class
-will authenticate via MongoDB::Connection->authenticate().  (See
-L<MongoDB::Connection|MongoDB::Connection> for details).
+will authenticate via MongoDB::MongoClient->authenticate().  (See
+L<MongoDB::MongoClient|MongoDB::MongoClient> for details).
 
 =head1 METHODS
 
@@ -254,6 +259,11 @@ if you need this please do:
 
 Creates MongoDB::OID object
 
+=head2 authenticate
+
+[re]authenticate after the initial connection, or
+authenticate to multiple databases within the same model.
+
 =head1 SUPPORT
 
 IRC
@@ -281,4 +291,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

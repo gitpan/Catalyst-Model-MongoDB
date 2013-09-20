@@ -9,28 +9,42 @@ use ExtUtils::MakeMaker 6.30;
 
 
 my %WriteMakefileArgs = (
-  'ABSTRACT' => 'MongoDB model class for Catalyst',
-  'AUTHOR' => 'Torsten Raudssus <torsten@raudssus.de> L<http://www.raudssus.de/>',
-  'BUILD_REQUIRES' => {
-    'Test::More' => '0.96'
+  "ABSTRACT" => "MongoDB model class for Catalyst",
+  "AUTHOR" => "Torsten Raudssus <torsten\@raudssus.de> L<http://www.raudssus.de/>",
+  "BUILD_REQUIRES" => {},
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
   },
-  'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.30'
+  "DISTNAME" => "Catalyst-Model-MongoDB",
+  "EXE_FILES" => [],
+  "LICENSE" => "perl",
+  "NAME" => "Catalyst::Model::MongoDB",
+  "PREREQ_PM" => {
+    "Catalyst::Runtime" => "5.80",
+    "MongoDB" => 0
   },
-  'DISTNAME' => 'Catalyst-Model-MongoDB',
-  'EXE_FILES' => [],
-  'LICENSE' => 'perl',
-  'NAME' => 'Catalyst::Model::MongoDB',
-  'PREREQ_PM' => {
-    'Catalyst::Runtime' => '5.80',
-    'MongoDB' => '0'
+  "TEST_REQUIRES" => {
+    "Test::More" => "0.96"
   },
-  'VERSION' => '0.10',
-  'test' => {
-    'TESTS' => 't/*.t'
+  "VERSION" => "0.08",
+  "test" => {
+    "TESTS" => "t/*.t"
   }
 );
 
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
+  my $tr = delete $WriteMakefileArgs{TEST_REQUIRES};
+  my $br = $WriteMakefileArgs{BUILD_REQUIRES};
+  for my $mod ( keys %$tr ) {
+    if ( exists $br->{$mod} ) {
+      $br->{$mod} = $tr->{$mod} if $tr->{$mod} > $br->{$mod};
+    }
+    else {
+      $br->{$mod} = $tr->{$mod};
+    }
+  }
+}
 
 unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
   my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};

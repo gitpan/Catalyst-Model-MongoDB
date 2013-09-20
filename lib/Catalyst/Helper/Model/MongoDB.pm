@@ -2,8 +2,8 @@ package Catalyst::Helper::Model::MongoDB;
 BEGIN {
   $Catalyst::Helper::Model::MongoDB::AUTHORITY = 'cpan:GETTY';
 }
-BEGIN {
-  $Catalyst::Helper::Model::MongoDB::VERSION = '0.10';
+{
+  $Catalyst::Helper::Model::MongoDB::VERSION = '0.08';
 }
 # ABSTRACT: Helper for MongoDB models
 use strict;
@@ -33,8 +33,6 @@ sub mk_comptest {
 
 1;
 
-
-
 =pod
 
 =head1 NAME
@@ -43,7 +41,7 @@ Catalyst::Helper::Model::MongoDB - Helper for MongoDB models
 
 =head1 VERSION
 
-version 0.10
+version 0.08
 
 =head1 SYNOPSIS
 
@@ -92,7 +90,6 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
 
 __DATA__
 
