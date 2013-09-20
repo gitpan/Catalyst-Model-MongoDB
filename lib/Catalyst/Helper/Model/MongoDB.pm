@@ -3,7 +3,7 @@ BEGIN {
   $Catalyst::Helper::Model::MongoDB::AUTHORITY = 'cpan:GETTY';
 }
 {
-  $Catalyst::Helper::Model::MongoDB::VERSION = '0.08';
+  $Catalyst::Helper::Model::MongoDB::VERSION = '0.11';
 }
 # ABSTRACT: Helper for MongoDB models
 use strict;
@@ -41,7 +41,7 @@ Catalyst::Helper::Model::MongoDB - Helper for MongoDB models
 
 =head1 VERSION
 
-version 0.08
+version 0.11
 
 =head1 SYNOPSIS
 

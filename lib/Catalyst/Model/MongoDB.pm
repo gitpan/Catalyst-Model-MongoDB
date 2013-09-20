@@ -3,7 +3,7 @@ BEGIN {
   $Catalyst::Model::MongoDB::AUTHORITY = 'cpan:GETTY';
 }
 {
-  $Catalyst::Model::MongoDB::VERSION = '0.08';
+  $Catalyst::Model::MongoDB::VERSION = '0.11';
 }
 # ABSTRACT: MongoDB model class for Catalyst
 use MongoDB;
@@ -155,7 +155,7 @@ Catalyst::Model::MongoDB - MongoDB model class for Catalyst
 
 =head1 VERSION
 
-version 0.08
+version 0.11
 
 =head1 SYNOPSIS
 
