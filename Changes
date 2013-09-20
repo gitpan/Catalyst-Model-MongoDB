@@ -1,6 +1,10 @@
 Revision history for Catalyst-Model-MongoDB
 
+0.12      2013-09-20 22:36:40 Asia/Tokyo
+        - Support find_master, so you can actually use replica sets properly. (Matthew Keller)
+
 0.11      2013-09-20 17:10:37 Asia/Tokyo
+        - Changed to use MongoDB::MongoClient as MongoDB::Connection is deprecated (roman3legs)
 
 0.10      2011-04-30 16:41:54 America/Chicago
 	- Turns out I can't spell; fixed that.

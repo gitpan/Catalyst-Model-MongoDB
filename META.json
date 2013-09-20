@@ -45,7 +45,7 @@
          "web" : "https://github.com/Getty/p5-catalyst-model-mongodb"
       }
    },
-   "version" : "0.11",
+   "version" : "0.12",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.012004"
